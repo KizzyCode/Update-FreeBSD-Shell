@@ -8,6 +8,8 @@ PREFIX="${PREFIX:-/usr/local}"
 echo "Creating entries..."
 
 # Create update.d directory
+install -v -d "$PREFIX/bin"
+install -v -d "$PREFIX/libexec"
 install -v -d "$PREFIX/libexec/update.d"
 
 # Install scripts

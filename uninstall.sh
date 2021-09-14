@@ -14,5 +14,5 @@ rm -v -f "$PREFIX/libexec/update.d/1-freebsd"
 rm -v -f "$PREFIX/libexec/update.d/2-freebsd-packages"
 rm -v -f "$PREFIX/libexec/update.d/3-freebsd-ports"
 
-# update.d
+# Remove update.d
 rm -v -r -f "$PREFIX/libexec/update.d"
