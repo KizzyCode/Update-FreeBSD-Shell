@@ -1,0 +1,14 @@
+#!/bin/sh
+set -eu
+. /usr/local/libexec/update
+
+# Process the update hooks
+process_hooks() {
+    # Iterate over the update hooks
+    for hook in `ls /usr/local/libexec/update.d | sort -h`; do
+        run_verbose "/usr/local/libexec/update.d/$hook"
+    done
+}
+
+process_hooks
+ask_reboot

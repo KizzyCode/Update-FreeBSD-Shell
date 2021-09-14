@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+. /usr/local/libexec/update
+
+# Update distro
+run_verbose freebsd-update fetch
+if freebsd-update updatesready; then
+    run_verbose freebsd-update install
+    ask_reboot
+fi

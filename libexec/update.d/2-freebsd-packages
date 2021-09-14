@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+. /usr/local/libexec/update
+
+# Update packages
+run_verbose pkg upgrade
+run_verbose ASSUME_ALWAYS_YES=YES pkg autoremove
+run_verbose ASSUME_ALWAYS_YES=YES pkg clean
