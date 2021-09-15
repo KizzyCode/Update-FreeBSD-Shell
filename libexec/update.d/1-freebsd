@@ -6,5 +6,5 @@ set -eu
 hookworm_eval freebsd-update fetch
 if freebsd-update updatesready; then
     hookworm_eval freebsd-update install
-    ask_reboot
+    hookworm_ask_reboot
 fi
