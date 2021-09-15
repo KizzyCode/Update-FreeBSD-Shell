@@ -1,14 +1,7 @@
 #!/bin/sh
 set -eu
-. /usr/local/libexec/update
+. /usr/local/libexec/hookworm
 
 # Process the update hooks
-process_hooks() {
-    # Iterate over the update hooks
-    for hook in `ls /usr/local/libexec/update.d | sort -h`; do
-        run_verbose "/usr/local/libexec/update.d/$hook"
-    done
-}
-
-process_hooks
-ask_reboot
+hookworm_main "/usr/local/libexec/update.d"
+hookworm_ask_reboot
