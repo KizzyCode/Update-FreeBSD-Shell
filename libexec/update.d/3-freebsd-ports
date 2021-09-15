@@ -1,14 +1,14 @@
 #!/bin/sh
 set -eu
-. /usr/local/libexec/update
+. /usr/local/libexec/hookworm
 
 # Update the ports-tree if it exists
 if test -f "/usr/ports/README"; then
-    run_verbose portsnap fetch update
+    hookworm_eval portsnap fetch update
 
     # Update the installed ports if portmaster is available
     if test -f "/usr/local/sbin/portmaster"; then
         ports=`pkg query --all '%n %R' | grep -E 'unknown-repository$' | awk '{ print $1 }'`
-        run_verbose portmaster -G -x pkg --update-if-newer $ports
+        hookworm_eval portmaster -G -x pkg --update-if-newer $ports
     fi
 fi

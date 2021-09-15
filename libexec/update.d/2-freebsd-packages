@@ -1,8 +1,8 @@
 #!/bin/sh
 set -eu
-. /usr/local/libexec/update
+. /usr/local/libexec/hookworm
 
 # Update packages
-run_verbose pkg upgrade
-run_verbose ASSUME_ALWAYS_YES=YES pkg autoremove
-run_verbose ASSUME_ALWAYS_YES=YES pkg clean
+hookworm_eval pkg upgrade
+hookworm_eval ASSUME_ALWAYS_YES=YES pkg autoremove
+hookworm_eval ASSUME_ALWAYS_YES=YES pkg clean

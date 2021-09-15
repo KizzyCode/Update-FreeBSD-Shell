@@ -1,10 +1,10 @@
 #!/bin/sh
 set -eu
-. /usr/local/libexec/update
+. /usr/local/libexec/hookworm
 
 # Update distro
-run_verbose freebsd-update fetch
+hookworm_eval freebsd-update fetch
 if freebsd-update updatesready; then
-    run_verbose freebsd-update install
+    hookworm_eval freebsd-update install
     ask_reboot
 fi
