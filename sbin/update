@@ -4,4 +4,6 @@ set -eu
 
 # Process the update hooks
 hookworm_main "/usr/local/libexec/update.d"
-hookworm_ask_reboot
+if hookworm_ask "Reboot" "r"; then
+    hookworm_eval reboot
+fi

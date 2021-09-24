@@ -31,8 +31,7 @@ done
 # "Reboot" the jails and complete the updates
 if $HAS_UPDATES; then
     # Wait until the admin is ready
-    hookworm_print "purple" "*> Press enter to restart all jails and finish the updates"
-    read _UNUSED
+    hookworm_ask "Restart all jails to complete the updates" "r"
 
     # Perform the final update step
     for JAIL in `jls name`; do
