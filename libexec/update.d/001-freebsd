@@ -3,7 +3,9 @@ set -eu
 . /usr/local/libexec/hookworm
 
 # Install any pending updates first
-hookworm_eval freebsd-update install
+if freebsd-update updatesready; then
+    hookworm_eval freebsd-update install
+fi
 
 # Search for updates
 hookworm_eval freebsd-update fetch
