@@ -1,0 +1,16 @@
+#!/bin/sh
+set -eu
+. /usr/local/libexec/hookworm
+
+for JAIL in `jls name`; do
+    # Update the ports-tree if it exists
+    if jexec $JAIL test -f "/usr/ports/README"; then
+        hookworm_eval jexec $JAIL portsnap fetch update
+
+        # Update the installed ports if portmaster is available
+        if jexec $JAIL test -f "/usr/local/sbin/portmaster"; then
+            PORTS=`jexec $JAIL pkg query --all '%n %R' | jexec $JAIL grep -E 'unknown-repository$' | jexec $JAIL awk '{ print $1 }'`
+            hookworm_eval jexec $JAIL portmaster -G -x pkg --update-if-newer $PORTS
+        fi
+    fi
+done

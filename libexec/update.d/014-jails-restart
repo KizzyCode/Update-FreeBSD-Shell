@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+. /usr/local/libexec/hookworm
+
+# Ask whether to restart the jails
+if hookworm_ask "Restart jails" "r"; then
+    hookworm_eval service jail restart
+fi

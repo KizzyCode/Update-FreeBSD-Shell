@@ -8,7 +8,7 @@ if test -f "/usr/ports/README"; then
 
     # Update the installed ports if portmaster is available
     if test -f "/usr/local/sbin/portmaster"; then
-        ports=`pkg query --all '%n %R' | grep -E 'unknown-repository$' | awk '{ print $1 }'`
-        hookworm_eval portmaster -G -x pkg --update-if-newer $ports
+        PORTS=`pkg query --all '%n %R' | grep -E 'unknown-repository$' | awk '{ print $1 }'`
+        hookworm_eval portmaster -G -x pkg --update-if-newer $PORTS
     fi
 fi

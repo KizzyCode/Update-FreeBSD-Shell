@@ -1,0 +1,39 @@
+#!/bin/sh
+set -eu
+. /usr/local/libexec/hookworm
+
+
+HAS_UPDATES=false
+
+# Performs a jail update task
+update_jail() {
+    local JAIL="$0"
+
+    # Install pending updates
+    hookworm_eval jexec $JAIL freebsd-update install
+
+    # Search for and install the updates
+    hookworm_eval jexec $JAIL freebsd-update fetch
+    if jexec $JAIL freebsd-update updatesready; then
+        hookworm_eval jexec $JAIL freebsd-update install
+        HAS_UPDATES=true
+    fi
+}
+
+
+# Update jails
+for JAIL in `jls name`; do
+    update_jail $JAIL
+done
+
+# "Reboot" the jails and complete the updates
+if $HAS_UPDATES; then
+    # Wait until the admin is ready
+    hookworm_print "purple" "*> Press enter to restart all jails and finish the updates"
+    read _UNUSED
+
+    # Perform the final update step
+    for JAIL in `jls name`; do
+        update_jail $JAIL
+    done
+fi

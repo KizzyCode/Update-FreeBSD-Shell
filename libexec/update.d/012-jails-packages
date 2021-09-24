@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+. /usr/local/libexec/hookworm
+
+# Update packages
+for JAIL in `jls name`; do
+    hookworm_eval jexec $JAIL pkg upgrade
+    hookworm_eval ASSUME_ALWAYS_YES=YES jexec $JAIL pkg autoremove
+    hookworm_eval ASSUME_ALWAYS_YES=YES jexec $JAIL pkg clean
+done

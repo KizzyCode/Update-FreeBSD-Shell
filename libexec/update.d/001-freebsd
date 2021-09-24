@@ -1,0 +1,16 @@
+#!/bin/sh
+set -eu
+. /usr/local/libexec/hookworm
+
+# Install any pending updates first
+hookworm_eval freebsd-update install
+
+# Search for updates
+hookworm_eval freebsd-update fetch
+if freebsd-update updatesready; then
+    # Install the updates
+    hookworm_eval freebsd-update install
+    if hookworm_ask "Reboot" "r"; then
+        hookworm_eval reboot
+    fi
+fi
